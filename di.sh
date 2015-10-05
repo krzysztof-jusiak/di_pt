@@ -49,7 +49,6 @@ benchmark() {
     [ "$2" == "ctor" ] && echo -e "#undef BOOST_DI_INJECT\n#define BOOST_DI_INJECT(type, ...) type(__VA_ARGS__)" > /tmp/$0.hpp
     [ "$3" == "auto" ] && echo "#define EXPOSED_OR_AUTO(t1, t2) t2" >> /tmp/$0.hpp || echo "#define EXPOSED_OR_AUTO(t1, t2) t1" >> /tmp/$0.hpp
     echo "`$4`" >> /tmp/$0.hpp
-    echo "time $CXX di.cpp -I ../../include -Wall -Werror $CXXFLAGS $CXXINC /tmp/$0.hpp $5 -DCOMPLEX=$1"
     (time $CXX di.cpp -I ../../include -Wall -Werror $CXXFLAGS $CXXINC "boost/di.hpp" $CXXINC /tmp/$0.hpp $5 -DCOMPLEX=$1) 2> /tmp/$0.dat
     if [[ "`grep error: /tmp/$0.dat`" != "" ]]; then >&2 cat /tmp/$0.dat; exit; fi
     cat /tmp/$0.dat | grep real | awk '{print $2}' | sed "s/0m\(.*\)s/\1/" | tr '\n' ' '
@@ -127,7 +126,7 @@ quick() {
 [[ -z "$MAX" ]] && MAX="10.0"
 [[ -z "$COMPLEXITY" ]] && COMPLEXITY="small,medium,big"
 
-[[ $COMPLEXITY == *"small"* ]] && small_complexity "Small complexity | $CXX $CXXFLAGS"
+[[ $COMPLEXITY == *"small"* ]] && graph small_complexity "Small complexity | $CXX $CXXFLAGS"
 [[ $COMPLEXITY == *"medium"* ]] && graph medium_complexity "Medium complexity | $CXX $CXXFLAGS"
 [[ $COMPLEXITY == *"big"* ]] && graph big_complexity "Big complexity | $CXX $CXXFLAGS"
 [[ $COMPLEXITY == *"quick"* ]] && quick
