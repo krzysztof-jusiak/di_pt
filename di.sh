@@ -46,6 +46,7 @@ bind_all() {
 }
 
 benchmark() {
+    rm -f /tmp/$0.hpp /tmp/$0.dat 2>/dev/null
     [ "$2" == "ctor" ] && echo -e "#undef BOOST_DI_INJECT\n#define BOOST_DI_INJECT(type, ...) type(__VA_ARGS__)" > /tmp/$0.hpp
     [ "$3" == "auto" ] && echo "#define EXPOSED_OR_AUTO(t1, t2) t2" >> /tmp/$0.hpp || echo "#define EXPOSED_OR_AUTO(t1, t2) t1" >> /tmp/$0.hpp
     echo "`$4`" >> /tmp/$0.hpp
@@ -96,7 +97,7 @@ medium_complexity() {
 }
 
 big_complexity() {
-    for ((i=10; i<=10; ++i)); do
+    for ((i=0; i<=10; ++i)); do
         n=$((100+(i*20)));
         echo -n "$n "
         benchmark big_complexity ctor auto "bind_interfaces_others 10 $i" "-ftemplate-depth=$((n+10))"
@@ -128,6 +129,6 @@ quick() {
 
 [[ $COMPLEXITY == *"small"* ]] && graph small_complexity "Small complexity | $CXX $CXXFLAGS"
 [[ $COMPLEXITY == *"medium"* ]] && graph medium_complexity "Medium complexity | $CXX $CXXFLAGS"
-[[ $COMPLEXITY == *"big"* ]] && graph big_complexity "Big complexity | $CXX $CXXFLAGS"
+[[ $COMPLEXITY == *"big"* ]] &&  graph big_complexity "Big complexity | $CXX $CXXFLAGS"
 [[ $COMPLEXITY == *"quick"* ]] && quick
 
