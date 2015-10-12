@@ -376,7 +376,7 @@ struct small_complexity { BOOST_DI_INJECT(small_complexity, y32) { } };
 struct medium_complexity { BOOST_DI_INJECT(medium_complexity, y99) { } };
 struct big_complexity { BOOST_DI_INJECT(big_complexity, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9) { } };
 
-#define RETURN(...) auto i = __VA_ARGS__; struct c : decltype(i) { c(const decltype(i)& t) : decltype(i)(t){} }; return c(i);
+#define RETURN(...) auto i = __VA_ARGS__; struct : decltype(i) { using injector::injector; } injector{i}; return injector;
 
 #if defined(MODULE1)
 EXPOSED_OR_AUTO(di::injector<c0>, auto) module1() noexcept {
