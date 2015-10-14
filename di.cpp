@@ -376,9 +376,11 @@ struct small_complexity { BOOST_DI_INJECT(small_complexity, y32) { } };
 struct medium_complexity { BOOST_DI_INJECT(medium_complexity, y99) { } };
 struct big_complexity { BOOST_DI_INJECT(big_complexity, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9) { } };
 
+#define RETURN(...) auto i = __VA_ARGS__; struct : decltype(i) { using injector::injector; } injector{i}; return injector;
+
 #if defined(MODULE1)
 EXPOSED_OR_AUTO(di::injector<c0>, auto) module1() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES1(
             di::bind<i00>().to<impl00>()
           , di::bind<i01>().to<impl01>()
@@ -413,13 +415,13 @@ EXPOSED_OR_AUTO(di::injector<c0>, auto) module1() noexcept {
           , di::bind<y08>.in(di::unique)
           , di::bind<y09>.in(di::unique)
       )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE2)
 EXPOSED_OR_AUTO(di::injector<c1>, auto) module2() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES2(
             di::bind<i10>().to<impl10>()
           , di::bind<i11>().to<impl11>()
@@ -454,13 +456,13 @@ EXPOSED_OR_AUTO(di::injector<c1>, auto) module2() noexcept {
           , di::bind<y18>.in(di::unique)
           , di::bind<y19>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE3)
 EXPOSED_OR_AUTO(di::injector<c2>, auto) module3() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES3(
             di::bind<i20>().to<impl20>()
           , di::bind<i21>().to<impl21>()
@@ -495,13 +497,13 @@ EXPOSED_OR_AUTO(di::injector<c2>, auto) module3() noexcept {
           , di::bind<y28>.in(di::unique)
           , di::bind<y29>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE4)
 EXPOSED_OR_AUTO(di::injector<c3>, auto) module4() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES4(
             di::bind<i30>().to<impl30>()
           , di::bind<i31>().to<impl31>()
@@ -536,13 +538,13 @@ EXPOSED_OR_AUTO(di::injector<c3>, auto) module4() noexcept {
           , di::bind<y38>.in(di::unique)
           , di::bind<y39>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE5)
 EXPOSED_OR_AUTO(di::injector<c4>, auto) module5() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES5(
             di::bind<i40>().to<impl40>()
           , di::bind<i41>().to<impl41>()
@@ -577,13 +579,13 @@ EXPOSED_OR_AUTO(di::injector<c4>, auto) module5() noexcept {
           , di::bind<y48>.in(di::unique)
           , di::bind<y49>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE6)
 EXPOSED_OR_AUTO(di::injector<c5>, auto) module6() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES6(
             di::bind<i50>().to<impl50>()
           , di::bind<i51>().to<impl51>()
@@ -618,13 +620,13 @@ EXPOSED_OR_AUTO(di::injector<c5>, auto) module6() noexcept {
           , di::bind<y58>.in(di::unique)
           , di::bind<y59>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE7)
 EXPOSED_OR_AUTO(di::injector<c6>, auto) module7() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES7(
             di::bind<i60>().to<impl60>()
           , di::bind<i61>().to<impl61>()
@@ -659,13 +661,13 @@ EXPOSED_OR_AUTO(di::injector<c6>, auto) module7() noexcept {
           , di::bind<y68>.in(di::unique)
           , di::bind<y69>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE8)
 EXPOSED_OR_AUTO(di::injector<c7>, auto) module8() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES8(
             di::bind<i70>().to<impl70>()
           , di::bind<i71>().to<impl71>()
@@ -700,13 +702,13 @@ EXPOSED_OR_AUTO(di::injector<c7>, auto) module8() noexcept {
           , di::bind<y78>.in(di::unique)
           , di::bind<y79>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE9)
 EXPOSED_OR_AUTO(di::injector<c8>, auto) module9() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES9(
             di::bind<i80>().to<impl80>()
           , di::bind<i81>().to<impl81>()
@@ -741,13 +743,13 @@ EXPOSED_OR_AUTO(di::injector<c8>, auto) module9() noexcept {
           , di::bind<y88>.in(di::unique)
           , di::bind<y89>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 #if defined(MODULE10)
 EXPOSED_OR_AUTO(di::injector<c9>, auto) module10() noexcept {
-    return di::make_injector(
+    RETURN( di::make_injector(
         BIND_INTERFACES10(
             di::bind<i90>().to<impl90>()
           , di::bind<i91>().to<impl91>()
@@ -782,12 +784,12 @@ EXPOSED_OR_AUTO(di::injector<c9>, auto) module10() noexcept {
           , di::bind<y98>.in(di::unique)
           , di::bind<y99>.in(di::unique)
         )
-    );
+    ));
 };
 #endif
 
 int main() {
-    auto EXPOSED_OR_AUTO(injector, injector_) = di::make_injector(
+    auto injector = di::make_injector(
         #if defined(MODULE1)
             module1()
         #endif
@@ -829,7 +831,6 @@ int main() {
         #endif
     );
 
-    EXPOSED_OR_AUTO(, struct : decltype(injector_) { using injector::injector; } injector{injector_});
     injector.create<COMPLEX>();
 }
 
