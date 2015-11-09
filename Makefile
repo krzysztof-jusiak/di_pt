@@ -13,3 +13,6 @@ big:
 quick:
 	COMPLEXITY=quick CXXFLAGS="-O2 -std=c++1y -I ../boost/libs/di/include" ./di.sh
 
+header:
+	$(CXX) -O2 -std=c++1y -I ../boost/libs/di/include di_header.cpp
+
