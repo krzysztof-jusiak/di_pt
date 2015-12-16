@@ -1564,11 +1564,12 @@ struct big_complexity {
 };
 
 #define RETURN(...)                                                            \
-  auto i = __VA_ARGS__;                                                        \
-  struct module : decltype(i) {                                                \
-    using injector::injector;                                                  \
+  auto m = __VA_ARGS__;                                                        \
+  using t = decltype(m);                                                       \
+  struct i : t {                                                               \
+    using t::t;                                                                \
   };                                                                           \
-  return module { static_cast<decltype(i) &&>(i) }
+  return i { static_cast<t &&>(m) }
 
 #if defined(MODULE1)
 EXPOSED_OR_AUTO(di::injector<c0>, auto) module1() noexcept {
